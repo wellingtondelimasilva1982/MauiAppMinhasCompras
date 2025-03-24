@@ -1,13 +1,12 @@
 using MauiAppMinhasCompras.Models;
-using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace MauiAppMinhasCompras.Views;
 
 public partial class ListaProduto : ContentPage
 {
     ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
+
     public ListaProduto()
     {
         InitializeComponent();
@@ -19,6 +18,8 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
+            lista.Clear();
+
             List<Produto> tmp = await App.Db.GetAll();
 
             tmp.ForEach(i => lista.Add(i));
@@ -27,7 +28,6 @@ public partial class ListaProduto : ContentPage
         {
             await DisplayAlert("Ops", ex.Message, "OK");
         }
-
     }
 
     private void ToolbarItem_Clicked(object sender, EventArgs e)
@@ -60,6 +60,7 @@ public partial class ListaProduto : ContentPage
             await DisplayAlert("Ops", ex.Message, "OK");
         }
     }
+
     private void ToolbarItem_Clicked_1(object sender, EventArgs e)
     {
         double soma = lista.Sum(i => i.Total);
@@ -73,11 +74,12 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
-            MenuItem selecionado = sender as MenuItem;
+            MenuItem selecinado = sender as MenuItem;
 
-            Produto p = selecionado.BindingContext as Produto;
+            Produto p = selecinado.BindingContext as Produto;
 
-            bool confirm = await DisplayAlert("Tem certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
+            bool confirm = await DisplayAlert(
+                "Tem Certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
 
             if (confirm)
             {

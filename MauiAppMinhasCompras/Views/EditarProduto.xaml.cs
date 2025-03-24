@@ -9,12 +9,12 @@ public partial class EditarProduto : ContentPage
         InitializeComponent();
     }
 
-    private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
         try
         {
             Produto produto_anexado = BindingContext as Produto;
-            
+
             Produto p = new Produto
             {
                 Id = produto_anexado.Id,
